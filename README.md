@@ -42,71 +42,87 @@ Project is all fresh
 
 s-box are generated with input generator and several transformation
 
-#### LEFT ROTATION
+#### Left rotation
 
 ```
-1 1 0 1 1 0 0 1 => 1 1 1 0 1 1 0 0 => ...
+d9              => b3
+1 1 0 1 1 0 0 1 => 1 0 1 1 0 0 1 1 => ...
 ```
 
-####  INVERSE LEFT ROTATION
+####  Inverse left rotation
 
 ```
-1 1 0 1 1 0 0 1 
+[d9]
+[1 1 0 1 1 0 0 1]
+9b              => 37
 1 0 0 1 1 0 1 1 => 0 0 1 1 0 1 1 1 => ...
 ```
 
-#### REVERSE LEFT ROTATION
+#### Reverse left rotation
 
 ```
-1 1 0 1 1 0 0 1
-0 0 1 0 0 1 1 0 => 0 0 0 1 0 0 1 1 => ...
+[d9]
+[1 1 0 1 1 0 0 1]
+26              => 4c
+0 0 1 0 0 1 1 0 => 0 1 0 0 1 1 0 0 => ...
 ```
 
-#### REVERSE INVERSE LEFT ROTATION
+#### Reverse inverse left rotation
 
 ```
-1 1 0 1 1 0 0 1
-0 0 1 0 0 1 1 0
+[d9]
+[1 1 0 1 1 0 0 1]
+[26]
+[0 0 1 0 0 1 1 0]
+64              => c8
 0 1 1 0 0 1 0 0 => 1 1 0 0 1 0 0 0 => ...
 ```
 
+#### Example
+
+input byte : d9
+
 ```
    0 1 2 3 4 5 6 7   8 9 A B C D E F
-0 [1 1 0 1 1 0 0 1] [0 0 0 1 0 0 1 1]
-1 [1 1 1 0 1 1 0 0] [1 0 0 0 1 0 0 1]
-2 [0 1 1 1 0 1 1 0] [1 1 0 0 0 1 0 0]
-3 [0 0 1 1 1 0 1 1] [0 1 1 0 0 0 1 0]
-4 [1 0 0 1 1 1 0 1] [0 0 1 1 0 0 0 1]
-5 [1 1 0 0 1 1 1 0] [1 0 0 1 1 0 0 0]
-6 [0 1 1 0 0 1 1 1] [0 1 0 0 1 1 0 0]
-7 [1 0 1 1 0 0 1 1] [0 0 1 0 0 1 1 0]
-    LEFT ROTATION    REVERSE LEFT ROT
+0 [1 1 0 1 1 0 0 1] [0 0 1 0 0 1 1 0]
+1 [1 0 1 1 0 0 1 1] [0 1 0 0 1 1 0 0]
+2 [0 1 1 0 0 1 1 1] [1 0 0 1 1 0 0 0]
+3 [1 1 0 0 1 1 1 0] [0 0 1 1 0 0 0 1]
+4 [1 0 0 1 1 1 0 1] [0 1 1 0 0 0 1 0]
+5 [0 0 1 1 1 0 1 1] [1 1 0 0 0 1 0 0]
+6 [0 1 1 1 0 1 1 0] [1 0 0 0 1 0 0 1]
+7 [1 1 1 0 1 1 0 0] [0 0 0 1 0 0 1 1]
+    Left rotation    Reverse left rot
 
-   INVERSE LEFT ROT  REV INV LEFT ROT
-8 [1 0 0 1 1 0 1 1] [1 1 0 0 1 0 0 0]
-9 [0 0 1 1 0 1 1 1] [1 0 0 1 0 0 0 1]
-A [0 1 1 0 1 1 1 0] [0 0 1 0 0 0 1 1]
-B [1 1 0 1 1 1 0 0] [0 1 0 0 0 1 1 0]
-C [1 0 1 1 1 0 0 1] [1 0 0 0 1 1 0 0]
-D [0 1 1 1 0 0 1 1] [0 0 0 1 1 0 0 1]
-E [1 1 1 0 0 1 1 0] [0 0 1 1 0 0 1 0]
-F [1 1 0 0 1 1 0 1] [0 1 1 0 0 1 0 0]
+   Inverse left rot  Rev inv left rot
+8 [1 0 0 1 1 0 1 1] [0 1 1 0 0 1 0 0]
+9 [0 0 1 1 0 1 1 1] [1 1 0 0 1 0 0 0]
+A [0 1 1 0 1 1 1 0] [1 0 0 1 0 0 0 1]
+B [1 1 0 1 1 1 0 0] [0 0 1 0 0 0 1 1]
+C [1 0 1 1 1 0 0 1] [0 1 0 0 0 1 1 0]
+D [0 1 1 1 0 0 1 1] [1 0 0 0 1 1 0 0]
+E [1 1 1 0 0 1 1 0] [0 0 0 1 1 0 0 1]
+F [1 1 0 0 1 1 0 1] [0 0 1 1 0 0 1 0]
 ```
+an additionnal start _vertical_ index give the position, of starting current transformation  
+
+here all start index begins to 0  
+start index are generated pseudo-randomly
 
 
-### legend
+### Legend
 
 --- : horizontal char or sequence duplicate  
 |   : vertical char duplicate
 
-#### input (36+1) string
+#### Input (36+1) string
 
 ```
 blaz to blaz000000000000aozaozaozaoz
 
 ```
 
-#### input chunk string view
+#### Input chunk string representation
 
 ```
 000000 [12:12]  blaz to blaz|
@@ -117,7 +133,7 @@ blaz to blaz000000000000aozaozaozaoz
 000003 [01:12]  ------------
 ```
 
-#### input chunk hexa representation
+#### Input chunk hexa representation
 
 ```
 000000 [12:12]	62 6c 61 7a 20 74 6f 20 62 6c 61 7a | 
@@ -129,7 +145,7 @@ blaz to blaz000000000000aozaozaozaoz
 000003 [01:12]	0a 
 ```
 
-#### output chunk hexa representation
+#### Output chunk hexa representation
 
 ```
 000000 [12:12]	30 51 13 ec 76 cc 32 ff 03 95 8f f7 
@@ -138,36 +154,36 @@ blaz to blaz000000000000aozaozaozaoz
 000003 [01:12]	c0 
 ```
 
-#### output (37) string
+#### Output (37) string
 
 ```
 0Q�v�2���8�X�6�/�q1�
                          8���.t̄
 ```
 
-### round definition
+### Round definition
 
-input data is read by chunk  
-on each chunk we iterate over input chunk data  
-a standard round use s-box related to a key index with input as chunk data index  
-extended round repeat operation with other s-box related to other key index with input as previous output  
-next round can be standard or extended with input as previous output  
+* input data is read by chunk
+* on each chunk we iterate over input chunk data
+* a standard round use s-box related to a key index with input as chunk data index
+* extended round repeat operation with other s-box related to other key index with input as previous output
+* next round can be standard or extended with input as previous output
 
-#### standard round
+#### Standard round
 
-== input char ======
+== input byte ======
 
 ```
-[r]ound : id - [i]nput chunk data : index - chunk [l]ength : index - [k]ey : index - [b]yte : output
+[r]ound : id - [i]nput chunk data : index - chunk [l]ine : index - [k]ey : index - [b]yte : output
 ```
 
-#### extended round
+#### Extended round
 
 ```
 {standard round} - [k]ey : index - [b]yte : output
 ```
 
-### round example
+### Round example
 
 ```
 == 62 ===============
@@ -184,11 +200,11 @@ r : 09 - i : 00 - l : 00 - k : 09 - b : 5e - k : 09 - b : 8a
 r : 10 - i : 00 - l : 00 - k : 10 - b : c6 - k : 06 - b : 0a
 r : 11 - i : 00 - l : 00 - k : 11 - b : 30
 
-all round transformation ([] are entended round) :
+all round transformation ([] are extended round) :
 62 > [9c > 24] > dc > f4 > d3 > 3d > 07 > 9a > [a8 > a4] > e6 > [5e > 8a] > [c6 > 0a] > 30
 
 ```
-### round sequences over chunk data iteration example
+### Round sequences over chunk data iteration example
 
 expose extended round moving position with related index key
 
@@ -349,4 +365,23 @@ r : 08 - i : 00 - l : 01 - k : 08 - b : 03
 r : 09 - i : 00 - l : 01 - k : 09 - b : 76 - k : 10 - b : e3
 r : 10 - i : 00 - l : 01 - k : 10 - b : 48 - k : 07 - b : 1d
 r : 11 - i : 00 - l : 01 - k : 11 - b : ad
+
+...
+
+== 0a ===============
+r : 00 - i : 00 - l : 03 - k : 00 - b : f3 - k : 03 - b : 84
+r : 01 - i : 00 - l : 03 - k : 01 - b : 6d
+r : 02 - i : 00 - l : 03 - k : 02 - b : 42
+r : 03 - i : 00 - l : 03 - k : 03 - b : 57
+r : 04 - i : 00 - l : 03 - k : 04 - b : f1
+r : 05 - i : 00 - l : 03 - k : 05 - b : c5
+r : 06 - i : 00 - l : 03 - k : 06 - b : 37
+r : 07 - i : 00 - l : 03 - k : 07 - b : 57 - k : 10 - b : 86
+r : 08 - i : 00 - l : 03 - k : 08 - b : 99
+r : 09 - i : 00 - l : 03 - k : 09 - b : 46 - k : 12 - b : aa
+r : 10 - i : 00 - l : 03 - k : 10 - b : 8a - k : 09 - b : 50
+r : 11 - i : 00 - l : 03 - k : 11 - b : c0
+
+...
+
 ```
